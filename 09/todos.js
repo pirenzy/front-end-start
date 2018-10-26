@@ -21,7 +21,7 @@ function addTodo(event){
   insertTodo(todo);
 
   input.value = '';
-  event.preventDefault();
+  event.preventDefault(); // 기본 행동 중지.
 }
 
 // input.addEventListener('keydown', addTodo);
@@ -37,3 +37,33 @@ function insertTodo(todo){
     
   list.innerHTML += html;    
 }
+
+list.addEventListener('click',delTodo);
+list.addEventListener('click',CheckTodo);
+
+function delTodo(event){
+    if(event.target.className !== 'delete') {
+        return;
+      }
+      var deleteBtn = event.target;
+      //버튼의 상위엘리먼트 <li> 제거
+      console.log(deleteBtn.parentElement);
+      deleteBtn.parentElement.remove();
+  }
+
+  function CheckTodo(event) {
+    if(event.target.className !== 'toggle-checked') {
+      return;
+    }
+    //event.target.parentNode.childNodes[5] = span 노드
+    console.log(event.target.parentNode.childNodes[5]);
+    var todoText = event.target.parentNode.childNodes[5];
+    if(event.target.checked){
+      todoText.style.textDecoration = "line-through";
+      todoText.style.color = "grey";
+    }
+    else {
+      todoText.style.textDecoration = "none";
+      todoText.style.color = "black";
+    }
+  }
